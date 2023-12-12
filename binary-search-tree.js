@@ -10,39 +10,154 @@ class TreeNode {
 class BinarySearchTree {
 
   constructor() {
+
+    this.root = null; //new TreeNode(null);
     // Your code here
   }
 
-  insert(val, currentNode=this.root) {
-    // Your code here
+  insert(val, cN=this.root) {
+
+     if(this.root === null)
+     {
+        this.root = new TreeNode(val);
+        return;
+     }
+
+     if(cN.val > val)
+     {
+      if(cN.left === null)
+      {
+        cN.left = new TreeNode(val);
+      }
+      else
+      {
+         this.insert(val, cN.left);
+      }
+     }
+     else if(cN.val<=val)
+     {
+
+      if(cN.right === null)
+      {
+        cN.right = new TreeNode(val);
+      }
+      else
+      {
+         this.insert(val, cN.right);
+      }
+
+     }
+
   }
 
   search(val) {
+
+      function Is(cN, T)
+      {
+          if(cN === null) return false;
+          else if(cN.val === T) return true;
+
+          return Is(cN.left, T) || Is(cN.right,T);
+
+      }
+
+      return Is(this.root, val)
     // Your code here
   }
 
 
-  preOrderTraversal(currentNode = this.root) {
+  preOrderTraversal(cN = this.root) {
+
+     if(cN ===  null ) return;
+
+     console.log(cN.val);
+
+     this.preOrderTraversal(cN.left);
+
+     this.preOrderTraversal(cN.right);
+
+
     // Your code here
   }
 
 
-  inOrderTraversal(currentNode = this.root) {
+  inOrderTraversal(cN = this.root) {
+
+
+    if(cN ===  null ) return;
+
+    //console.log(cN.val);
+
+    this.inOrderTraversal(cN.left);
+
+    console.log(cN.val);
+
+    this.inOrderTraversal(cN.right);
+
     // Your code here
   }
 
 
-  postOrderTraversal(currentNode = this.root) {
+  postOrderTraversal(cN = this.root) {
+
+
+    if(cN ===  null ) return;
+
+    //console.log(cN.val);
+
+    this.postOrderTraversal(cN.left);
+
+    this.postOrderTraversal(cN.right);
+
+    console.log(cN.val);
+
     // Your code here
   }
 
     // Breadth First Traversal - Iterative
   breadthFirstTraversal() {
+
+
+    if(this.root === null) return;
+
+    let Q = [];
+
+    Q.push(this.root);
+
+    let cN;
+
+    while(Q.length != 0)
+    {
+
+       cN = Q.shift();
+       console.log(cN.val);
+
+       if(cN.left != null) Q.push(cN.left);
+       if(cN.right != null)  Q.push(cN.right);
+
+    }
     // your code here
   }
 
   // Depth First Traversal - Iterative
   depthFirstTraversal() {
+
+     let stack = [];
+
+     function Dpth(cN)
+     {
+        if(cN === null) return;
+
+        stack.push(cN.val);
+        console.log(stack.pop());
+
+        Dpth(cN.right);
+        Dpth(cN.left);
+
+     }
+
+     Dpth(this.root);
+
     // your code here
 }
 }
